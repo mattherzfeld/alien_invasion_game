@@ -8,6 +8,7 @@ class AlienInvasion:
     def __init__(self):
         """Initialize the game, and create game resources."""
         pygame.init()
+        self.clock = pygame.time.Clock() # This helps to control the frame rate. If the loop processes too fast, Pygame will pause to adjust.
 
         self.screen = pygame.display.set_mode((1200, 800)) #tuple that defines the dimensions, 1200 wide x 800 high pixels
         pygame.display.set_caption("Alien Invasion")
