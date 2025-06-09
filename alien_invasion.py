@@ -36,9 +36,14 @@ class AlienInvasion:
             elif event.type == pygame.KEYDOWN: # Check whether a key is pressed
                 if event.key == pygame.K_RIGHT: # Now we check whether the right arrow was pressed
                     self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    self.ship.moving_left = True
+
             elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
                         self.ship.rect.x += 1
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.rect.x -= 1
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
