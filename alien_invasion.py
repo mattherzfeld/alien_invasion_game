@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 class AlienInvasion:
     """Overall class to manage game assets and behavior."""
@@ -14,23 +15,31 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height)) #tuple that defines the dimensions, 1200x800 pixels
         pygame.display.set_caption("Alien Invasion")
 
+        self.ship = Ship(self)
+
         # Set the background color
         self.bg_color = (230, 230, 230) # default color would be black, this utilizes the RGB color values. 230-230-230 is light gray
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
-            # Watch for keyboard and mouse events.
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-            # Redraw the screen during each pass through the loop
-            self.screen.fill(self.settings.bg_color)
-
-            # Make the most recently drawn screen visible.
-            pygame.display.flip()
+            self._check_events()
+            self._update_screen()
             self.clock.tick(60) # One argument. Pygame here will attempt to make the loop run exactly 60 times per second.
+            
+    def _check_events(self):
+        """Respond to keypresses and mouse events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+    def _update_screen(self):
+        """Update images on the screen, and flip to the new screen."""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+
+        # Make the most recently drawn screen visible.
+        pygame.display.flip()
 
 if __name__ == '__main__':
     # Make a game instance, and run the game.
