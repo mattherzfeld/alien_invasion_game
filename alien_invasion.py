@@ -12,7 +12,9 @@ class AlienInvasion:
         self.clock = pygame.time.Clock() # This helps to control the frame rate. If the loop processes too fast, Pygame will pause to adjust.
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height)) #tuple that defines the dimensions, 1200x800 pixels
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width #Updates settings for width after pygame figures out fullscreen dimensions.
+        self.settings.screen_height = self.screen.get_rect().height #Updates settings for height after pygame figures out fullscreen dimensions.
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)
@@ -35,7 +37,7 @@ class AlienInvasion:
                 sys.exit()
             elif event.type == pygame.KEYDOWN: # Check whether a key is pressed
                 self._check_keydown_events(event)
-            elif event.type == pygame.KEYUP:
+            elif event.type == pygame.KEYUP: # Check whether a key is released
                 self._check_keyup_events(event)
 
     def _check_keydown_events(self, event):
@@ -44,6 +46,8 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_q:
+            sys.exit()
                 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
