@@ -24,6 +24,7 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
             self.clock.tick(60) # One argument. Pygame here will attempt to make the loop run exactly 60 times per second.
             
@@ -32,6 +33,12 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN: # Check whether a key is pressed
+                if event.key == pygame.K_RIGHT: # Now we check whether the right arrow was pressed
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.rect.x += 1
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
