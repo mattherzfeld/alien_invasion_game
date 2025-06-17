@@ -30,9 +30,10 @@ class AlienInvasion:
 
     def _create_fleet(self):
         """Create a fleet of aliens."""
-        # Make an alien.
+        # Create an alien and keep adding aliens until there's no room left.
+        # Spacing between aliens is one alien width.
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
 
 
     def run_game(self):
