@@ -1,6 +1,8 @@
 import sys
+from time import sleep
 import pygame
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -18,6 +20,9 @@ class AlienInvasion:
         self.settings.screen_width = self.screen.get_rect().width #Updates settings for width after pygame figures out fullscreen dimensions.
         self.settings.screen_height = self.screen.get_rect().height #Updates settings for height after pygame figures out fullscreen dimensions.
         pygame.display.set_caption("Alien Invasion")
+
+        # Create an instance to store game statistics
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
