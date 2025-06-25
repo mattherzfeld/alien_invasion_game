@@ -66,9 +66,12 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+
+            if self.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
             self.clock.tick(60) # One argument. Pygame here will attempt to make the loop run exactly 60 times per second.
             
@@ -157,7 +160,7 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
-        if self.stat.ship_left > 0:
+        if self.stats.ships_left > 0:
             # Decrement ships_left.
             self.stats.ships_left -= 1
 
@@ -172,6 +175,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.game_active = False
+            pygame.quit() # The Game is Over
     
     def _check_aliens_bottom(self):
         """Check if any aliens have reached the bottom of the screen."""
