@@ -119,9 +119,13 @@ class AlienInvasion:
         if button_clicked and not self.game_active: # This fixes that portion of the screen the play button was in (when game active, clicks won't work there).
             # Reset the game settings.
             self.settings.initialize_dynamic_settings()
+
+            # Reset the game statistics.
             self.stats.reset_stats()
+            self.stats.game_active = True
             self.sb.prep_score()
-            self.game_active = True
+            self.sb.prep_level()
+            self.sb.prep_ships()
 
             # Get rid of any remaining bullets and aliens.
             self.bullets.empty()
@@ -169,6 +173,10 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+
+            # Increase level
+            self.stats.level += 1
+            self.sb.prep_level()
         
 
     def _update_aliens(self):
@@ -199,8 +207,9 @@ class AlienInvasion:
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
         if self.stats.ships_left > 0:
-            # Decrement ships_left.
+            # Decrement ships_left, and update scoreboard.
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Get rid of any remaning bullets and aliens.
             self.bullets.empty()
@@ -212,7 +221,7 @@ class AlienInvasion:
             # Pause after getting hit to show player what has occurred.
             sleep(0.5)
         else:
-            self.game_active = False
+            self.stats.game_active = False
             pygame.mouse.set_visible(True) #Mouse active again upon game ending/inactive.
     
     def _check_aliens_bottom(self):
