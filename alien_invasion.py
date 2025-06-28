@@ -74,7 +74,7 @@ class AlienInvasion:
         while True:
             self._check_events()
 
-            if self.game_active:
+            if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
@@ -116,7 +116,7 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """Start a new game when the play clicks Play."""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked and not self.game_active: # This fixes that portion of the screen the play button was in (when game active, clicks won't work there).
+        if button_clicked and not self.stats.game_active: # This fixes that portion of the screen the play button was in (when game active, clicks won't work there).
             # Reset the game settings.
             self.settings.initialize_dynamic_settings()
 
@@ -244,7 +244,7 @@ class AlienInvasion:
         self.sb.show_score()
 
         # Draw the play button if the game is inactive.
-        if not self.game_active:
+        if not self.stats.game_active:
             self.play_button.draw_button()
 
         # Make the most recently drawn screen visible.
