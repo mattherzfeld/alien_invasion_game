@@ -1,1 +1,3 @@
 # alien_invasion_game
+
+# Placeholder, formal documentation to follow...
