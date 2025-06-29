@@ -222,6 +222,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.stats.game_active = False
+            print("GAME OVER") #To terminal on last ship loss.
             pygame.mouse.set_visible(True) #Mouse active again upon game ending/inactive.
     
     def _check_aliens_bottom(self):
